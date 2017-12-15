@@ -41,7 +41,7 @@
                 }  
                 else  
                 {  
-                     echo "<h2>PLease Enter correct Username or Password</h2>";  
+                     echo "<h2>Please Enter correct Username or Password</h2>";  
                 }  
            }  
       }  
