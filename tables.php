@@ -137,7 +137,7 @@ function confirmDelete()
     <td><?php echo $row["title"]; ?></td>
     <td><?php echo $row["Authorname"]; ?></td>
     <td><?php echo $row["Authodiscrition"]; ?></td>
-    <td><?php echo $row["Articalimage"]; ?></td>
+    <td><?php echo '<img height="100px" width="100px" src="images/'.$row['Articalimage']. '">'; ?></td>
     <td><?php echo $row["reg_date"]; ?></td>
     </tr>
     <?php
