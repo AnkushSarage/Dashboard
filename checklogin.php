@@ -14,11 +14,11 @@
       {  
 
 
-           if(empty($_POST["username"]) || empty($_POST["password"]))  
+           if(empty($_POST["username"]) || empty($_POST["password"]))  //check credential if blank display msg wrong username or password
            {  
 
 
-                $message = '<label>All fields are required</label>';  
+                echo "<h2>Please Enter correct Username or Password</h2>";  
            }  
            else  
            {   
@@ -29,11 +29,11 @@
                      array(  
                           'username'     =>     $_POST["username"],  
                           'password'     =>     $_POST["password"]  
-                     )  
+                     )  //check credential with DB 
                 );  
 
                 $count = $statement->rowCount();  
-                if($count > 0)  
+                if($count > 0)   
                 {  
                      $_SESSION["username"] = $_POST["username"];  
                      header("location:login_success.php");  

@@ -64,13 +64,7 @@ function confirmDelete()
         </li>
       </ul>
       <ul class="navbar-nav ml-auto">
-     <div id="nav">
-      <ul>
-        <span<li><a href="#" id="home"><strong>Home</strong></a></li>></span>
-        <span<li><a href="http://acee-thethirdeye.net/page2.php?page=About" id="about"><strong>About</strong></a></li>></span>
-        <span<li><a href="http://acee-thethirdeye.net/contact-us.php" id="contact"><strong>Contact</strong></a></li>></span>
-      </ul> 
-    </div>
+     
         <!-- <li class="nav-item">
           <form class="form-inline my-2 my-lg-0 mr-lg-2">
             <div class="input-group">
@@ -120,7 +114,7 @@ function confirmDelete()
   <tr>
     <th class="table-header" width="10%">Id</th>
     <th class="table-header" width="20%">Title</th>
-    <th class="table-header" width="18%">Aothor Name</th> 
+    <th class="table-header" width="18%">Author Name</th> 
     <th class="table-header" width="22%">Author Discription</th>
     <th class="table-header" width="18%">Artical Image</th>
     <th class="table-header" width="22%">Registration Date</th>
@@ -179,7 +173,7 @@ function confirmDelete()
           <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
           <div class="modal-footer">
             <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-            <a class="btn btn-primary" href="login.html">Logout</a>
+            <a class="btn btn-primary" href="index.php">Logout</a>
           </div>
         </div>
       </div>

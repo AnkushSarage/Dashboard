@@ -1,15 +1,15 @@
 <?php
-if(!empty($_POST["add_record"])) {
-  require_once("db.php");
-  $sql = "INSERT INTO yearenderdata ( title, Authorname, Authodiscrition, Articalimage, reg_date) VALUES ( :title, :Authorname, :Authodiscrition, :Articalimage, :reg_date )";
-  $pdo_statement = $pdo_conn->prepare( $sql );
-    
-  $result = $pdo_statement->execute( array( ':title'=>$_POST['title'], ':Authorname'=>$_POST['Authorname'], ':Authodiscrition'=>$_POST['Authodiscrition'], ':Articalimage'=>$_POST['Articalimage'], ':reg_date'=>$_POST['reg_date'] ) );
-  if (!empty($result) ){
+require_once("db.php");
+if(!empty($_POST["save_record"])) {
+  $pdo_statement=$pdo_conn->prepare("update yearenderdata set title='" . $_POST[ 'title' ] . "', Authorname='" . $_POST[ 'Authorname' ]. "', Authodiscrition='" . $_POST[ 'Authodiscrition' ]. "' , Articalimage='" . $_POST[ 'Articalimage' ]. "', reg_date='" . $_POST[ 'reg_date' ]. "' where id=" . $_GET["id"]);
+  $result = $pdo_statement->execute();
+  if($result) {
     header('location:home.php');
-
   }
 }
+$pdo_statement = $pdo_conn->prepare("SELECT * FROM yearenderdata where id=" . $_GET["id"]);
+$pdo_statement->execute();
+$result = $pdo_statement->fetchAll();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -31,10 +31,10 @@ if(!empty($_POST["add_record"])) {
 body{width:auto;font-family:arial;letter-spacing:1px;line-height:20px;}
 .button_link {color:#FFF;text-decoration:none; background-color:#428a8e;padding:10px;}
 .frm-add {border: #c3bebe 1px solid;
-    padding: 50px;}
+    padding: 30px;}
 .demo-form-heading {margin-top:0px;font-weight: 500;} 
-.demo-form-row{margin-top:10px;}
-.demo-form-field{width:700px;padding:10px;}
+.demo-form-row{margin-top:20px;}
+.demo-form-field{width:600px;padding:10px;}
 .demo-form-submit{color:#FFF;background-color:#414444;padding:10px 50px;border:0px;cursor:pointer;}
 </style>
 </head>
@@ -76,7 +76,6 @@ body{width:auto;font-family:arial;letter-spacing:1px;line-height:20px;}
         </li>
       </ul>
       <ul class="navbar-nav ml-auto">
-  
         
         <!-- <li class="nav-item">
           <form class="form-inline my-2 my-lg-0 mr-lg-2">
@@ -104,39 +103,38 @@ body{width:auto;font-family:arial;letter-spacing:1px;line-height:20px;}
         <li class="breadcrumb-item">
           <a href="#">Dashboard</a>
         </li>
-        <li class="breadcrumb-item active">Add</li>
+        <li class="breadcrumb-item active">Update</li>
       </ol>
       <!-- Area Chart Example-->
-          
-<div style="margin:20px 0px;text-align:right;"><a href="home.php" class="button_link table table-bordered">Back to List</a></div>
+      <div style="margin:20px 0px;text-align:right;"><a href="home.php" class="button_link">Back to List</a></div>
 <div class="frm-add">
-<h1 class="demo-form-heading ">Add New Record</h1>
+<h1 class="demo-form-heading">Update Record</h1>
 <form name="frmAdd" action="" method="POST">
   <div class="demo-form-row">
     <label>Title: </label><br>
-    <input type="text" name="title" class="demo-form-field table table-bordered" required />
+    <input type="text" name="title" class="demo-form-field" value="<?php echo $result[0]['title']; ?>" required  />
   </div>
   <div class="demo-form-row">
-    <label>Description: </label><br>
-    <textarea name="Authorname" class="demo-form-field table table-bordered" rows="5" required ></textarea>
+    <label>Author Name: </label><br>
+    <textarea name="Authorname" class="demo-form-field"  required ><?php echo $result[0]['Authorname']; ?></textarea>
   </div>
   <div class="demo-form-row">
     <label>Author Discrition: </label><br>
-    <input type="text" name="Authodiscrition" class="demo-form-field table table-bordered" required />
+    <input type="text" name="Authodiscrition" class="demo-form-field" value="<?php echo $result[0]['Authodiscrition']; ?>" required  />
   </div>
   <div class="demo-form-row">
     <label>Artical Image: </label><br>
-    <input type="text" name="Articalimage" class="demo-form-field table table-bordered" required />
+    <input type="text" name="Articalimage" class="demo-form-field" value="<?php echo $result[0]['Articalimage']; ?>" required  />
   </div>
   <div class="demo-form-row">
     <label>Date: </label><br>
-    <input type="date" name="reg_date" class="demo-form-field table table-bordered" required />
+    <input type="date" name="reg_date" class="demo-form-field" value="<?php echo $result[0]['reg_date']; ?>" required />
   </div>
   <div class="demo-form-row">
-    <input name="add_record" type="submit" value="Add" class="demo-form-submit">
+    <input name="save_record" type="submit" value="Save" class="demo-form-submit">
   </div>
   </form>
-</div> 
+</div>
     
     </div>
     <!-- /.container-fluid-->

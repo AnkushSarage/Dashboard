@@ -31,10 +31,10 @@ $result = $pdo_statement->fetchAll();
 body{width:auto;font-family:arial;letter-spacing:1px;line-height:20px;}
 .button_link {color:#FFF;text-decoration:none; background-color:#428a8e;padding:10px;}
 .frm-add {border: #c3bebe 1px solid;
-    padding: 30px;}
+    padding: 50px;}
 .demo-form-heading {margin-top:0px;font-weight: 500;} 
-.demo-form-row{margin-top:20px;}
-.demo-form-field{width:300px;padding:10px;}
+.demo-form-row{margin-top:10px;}
+.demo-form-field{width:700px;padding:10px;}
 .demo-form-submit{color:#FFF;background-color:#414444;padding:10px 50px;border:0px;cursor:pointer;}
 </style>
 </head>
@@ -76,14 +76,8 @@ body{width:auto;font-family:arial;letter-spacing:1px;line-height:20px;}
         </li>
       </ul>
       <ul class="navbar-nav ml-auto">
-        <div id="nav">
-      <ul>
-        <span<li><a href="#" id="home"><strong>Home</strong></a></li>></span>
-        <span<li><a href="http://acee-thethirdeye.net/page2.php?page=About" id="about"><strong>About</strong></a></li>></span>
-        <span<li><a href="http://acee-thethirdeye.net/contact-us.php" id="contact"><strong>Contact</strong></a></li>></span>
-      </ul> 
-    </div>
         
+      
         <!-- <li class="nav-item">
           <form class="form-inline my-2 my-lg-0 mr-lg-2">
             <div class="input-group">
@@ -119,23 +113,23 @@ body{width:auto;font-family:arial;letter-spacing:1px;line-height:20px;}
 <form name="frmAdd" action="" method="POST">
   <div class="demo-form-row">
     <label>Title: </label><br>
-    <input type="text" name="title" class="demo-form-field" value="<?php echo $result[0]['title']; ?>" required  />
+    <input type="text" name="title" class="demo-form-field table table-bordered" value="<?php echo $result[0]['title']; ?>" required  />
   </div>
   <div class="demo-form-row">
     <label>Author Name: </label><br>
-    <textarea name="Authorname" class="demo-form-field"  required ><?php echo $result[0]['Authorname']; ?></textarea>
+    <textarea name="Authorname" class="demo-form-field table table-bordered"  required ><?php echo $result[0]['Authorname']; ?></textarea>
   </div>
   <div class="demo-form-row">
     <label>Author Discrition: </label><br>
-    <input type="text" name="Authodiscrition" class="demo-form-field" value="<?php echo $result[0]['Authodiscrition']; ?>" required  />
+    <input type="text" name="Authodiscrition" class="demo-form-field table table-bordered" value="<?php echo $result[0]['Authodiscrition']; ?>" required  />
   </div>
   <div class="demo-form-row">
     <label>Artical Image: </label><br>
-    <input type="text" name="Articalimage" class="demo-form-field" value="<?php echo $result[0]['Articalimage']; ?>" required  />
+    <input type="text" name="Articalimage" class="demo-form-field table table-bordered" value="<?php echo $result[0]['Articalimage']; ?>" required  />
   </div>
   <div class="demo-form-row">
     <label>Date: </label><br>
-    <input type="date" name="reg_date" class="demo-form-field" value="<?php echo $result[0]['reg_date']; ?>" required />
+    <input type="date" name="reg_date" class="demo-form-field table table-bordered" value="<?php echo $result[0]['reg_date']; ?>" required />
   </div>
   <div class="demo-form-row">
     <input name="save_record" type="submit" value="Save" class="demo-form-submit">
@@ -170,7 +164,7 @@ body{width:auto;font-family:arial;letter-spacing:1px;line-height:20px;}
           <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
           <div class="modal-footer">
             <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-            <a class="btn btn-primary" href="login.html">Logout</a>
+            <a class="btn btn-primary" href="index.php">Logout</a>
           </div>
         </div>
       </div>

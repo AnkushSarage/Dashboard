@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+  <!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -21,10 +21,10 @@
     <div class="card card-login mx-auto mt-5">
       <div class="card-header">Login</div>
       <div class="card-body">
-        <form method="post" action="checklogin.php">
+        <form method="post" action="checklogin.php"> <!--  redirect on checklogin.php -->
           <div class="form-group">
             <label for="exampleInputEmail1">Username</label>
-            <input class="form-control" placeholder="Enter Username" name="username" id="username" type="text" aria-describedby="emailHelp" placeholder="Enter email">
+            <input class="form-control" placeholder="Enter Username" name="username" id="username" type="text" aria-describedby="emailHelp" >
           </div>
           <div class="form-group">
             <label for="exampleInputPassword1">Password</label>
