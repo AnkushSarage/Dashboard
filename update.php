@@ -1,12 +1,12 @@
 <?php
-require_once("db.php");
+require_once("db.php");  //include DB connction
 if(!empty($_POST["save_record"])) {
   $pdo_statement=$pdo_conn->prepare("update yearenderdata set title='" . $_POST[ 'title' ] . "', Authorname='" . $_POST[ 'Authorname' ]. "', Authodiscrition='" . $_POST[ 'Authodiscrition' ]. "' , Articalimage='" . $_POST[ 'Articalimage' ]. "', reg_date='" . $_POST[ 'reg_date' ]. "' where id=" . $_GET["id"]);
   $result = $pdo_statement->execute();
   if($result) {
     header('location:home.php');
   }
-}
+}           //query for update data
 $pdo_statement = $pdo_conn->prepare("SELECT * FROM yearenderdata where id=" . $_GET["id"]);
 $pdo_statement->execute();
 $result = $pdo_statement->fetchAll();
