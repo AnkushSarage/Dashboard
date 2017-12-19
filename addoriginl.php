@@ -1,34 +1,16 @@
 <?php
 if(!empty($_POST["add_record"])) {
   require_once("db.php");                    //  Include DB connection
-
-//     $target_path="images/";
-
-// $target_path = $target_path . basename( $_FILES['File1']['name'] ); 
-// $randString = md5(time()); //encode the timestamp - returns a 32 chars long string
-//   $fileName = $_FILES["File1"]["name"]; //the original file name
-//   $splitName = explode(".", $fileName); //split the file name by the dot
-//   $fileExt = end($splitName); //get the file extension
-//   $newFileName  = strtolower($randString.'.time()'.$fileExt); //join file name and ext.
-
-// if ( move_uploaded_file( $_FILES['File1']['tmp_name'], $target_path)) {
-//        echo '<p>The file was uploaded</p>';
-//       } else {
-//         echo '<p>There was an error uploading your file. Please try again.</p>';
-//       }
-
   $sql = "INSERT INTO yearenderdata ( title, Authorname, Authodiscrition, Articalimage, reg_date) VALUES ( :title, :Authorname, :Authodiscrition, :Articalimage, :reg_date )";
   $pdo_statement = $pdo_conn->prepare( $sql );
     
-  $result = $pdo_statement->execute( array( ':title'=>$_POST['title'], ':Authorname'=>$_POST['Authorname'], ':Authodiscrition'=>$_POST['Authodiscrition'], ':Articalimage'=>$_POST['File'], ':reg_date'=>$_POST['reg_date'] ) );
+  $result = $pdo_statement->execute( array( ':title'=>$_POST['title'], ':Authorname'=>$_POST['Authorname'], ':Authodiscrition'=>$_POST['Authodiscrition'], ':Articalimage'=>$_POST['Articalimage'], ':reg_date'=>$_POST['reg_date'] ) );
   if (!empty($result) ){
     header('location:home.php');
 
   }
 }
 ?>
-
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -144,11 +126,8 @@ body{width:auto;font-family:arial;letter-spacing:1px;line-height:20px;}
   </div>
   <div class="demo-form-row">
     <label>Artical Image: </label><br>
-  <div class="btn" >  
-        <span>Choose File</span>
-      </div>  
-  <input style="width: 572px" id="fileupload" type="file" name="File" class="demo-form-field table table-bordered" required /></div>
-    
+    <input type="text" name="Articalimage" class="demo-form-field table table-bordered" required />
+  </div>
   <div class="demo-form-row">
     <label>Date: </label><br>
     <input type="date" name="reg_date" class="demo-form-field table table-bordered" required />
@@ -202,36 +181,6 @@ body{width:auto;font-family:arial;letter-spacing:1px;line-height:20px;}
     <script src="js/sb-admin.min.js"></script>
     <!-- Custom scripts for this page-->
     <script src="js/sb-admin-charts.min.js"></script>
-    <script language="javascript" type="text/javascript">
-    $(function () {
-      $("#fileupload").change(function () {
-        $("#dvPreview").html("");
-        var regex = /^([a-zA-Z0-9\s_\\.\-:])+(.jpg|.jpeg|.gif|.png|.bmp)$/;
-        if (regex.test($(this).val().toLowerCase())) {
-          if ($.browser.msie && parseFloat(jQuery.browser.version) <= 9.0) {
-            $("#dvPreview").show();
-            $("#dvPreview")[0].filters.item("DXImageTransform.Microsoft.AlphaImageLoader").src = $(this).val();
-          } else {
-            if (typeof (FileReader) != "undefined") {
-              $("#dvPreview").show();
-              $("#dvPreview").append("<img />");
-              var reader = new FileReader();
-              reader.onload = function (e) {
-                $("#dvPreview img").attr("src", e.target.result);
-                $("#dvPreview img").attr("style", "width:242px; height:200px;");
-               
-              }
-              reader.readAsDataURL($(this)[0].files[0]);
-            } else {
-              alert("This browser does not support FileReader.");
-            }
-          }
-        } else {
-          alert("Please upload a valid image file.");
-        }
-      });
-    });
-</script>
   </div>
 </body>
 
