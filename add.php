@@ -1,6 +1,6 @@
 <?php
 if(!empty($_POST["add_record"])) {
-  require_once("db.php");
+  require_once("db.php");                    //  Include DB connection
   $sql = "INSERT INTO yearenderdata ( title, Authorname, Authodiscrition, Articalimage, reg_date) VALUES ( :title, :Authorname, :Authodiscrition, :Articalimage, :reg_date )";
   $pdo_statement = $pdo_conn->prepare( $sql );
     
@@ -59,13 +59,13 @@ body{width:auto;font-family:arial;letter-spacing:1px;line-height:20px;}
             <i class="fa fa-fw fa-area-chart"></i>
             <span class="nav-link-text">Add Record</span>
           </a>
-        </li>
+        </li>                                    <!-- On click add button it redirect to add.php-->
         <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Tables">
           <a class="nav-link" href="tables.php">
             <i class="fa fa-fw fa-table"></i>
             <span class="nav-link-text">Tables</span>
           </a>
-        </li>
+        </li>                              <!-- On click table button it redirect to table.php-->
       
       </ul>
       <ul class="navbar-nav sidenav-toggler">
@@ -108,7 +108,7 @@ body{width:auto;font-family:arial;letter-spacing:1px;line-height:20px;}
       </ol>
       <!-- Area Chart Example-->
           
-<div style="margin:20px 0px;text-align:right;"><a href="home.php" class="button_link table table-bordered">Back to List</a></div>
+<div style="margin:20px 0px;text-align:right;"><a href="home.php" class="button_link table table-bordered">Back to List</a></div>      <!--   this button redirect to home page -->
 <div class="frm-add">
 <h1 class="demo-form-heading ">Add New Record</h1>
 <form name="frmAdd" action="" method="POST">
@@ -117,8 +117,8 @@ body{width:auto;font-family:arial;letter-spacing:1px;line-height:20px;}
     <input type="text" name="title" class="demo-form-field table table-bordered" required />
   </div>
   <div class="demo-form-row">
-    <label>Description: </label><br>
-    <textarea name="Authorname" class="demo-form-field table table-bordered" rows="5" required ></textarea>
+    <label>Auther Name: </label><br>
+    <input type="text" name="Authorname" class="demo-form-field table table-bordered"  required >
   </div>
   <div class="demo-form-row">
     <label>Author Discrition: </label><br>

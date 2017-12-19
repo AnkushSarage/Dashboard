@@ -1,5 +1,5 @@
     <?php 
-    require_once("db.php");
+    require_once("db.php");                 // include DB connection
     ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -47,13 +47,13 @@ function confirmDelete()
             <i class="fa fa-fw fa-area-chart"></i>
             <span class="nav-link-text">Add Record</span>
           </a>
-        </li>
+        </li>                          <!-- On click add button it redirect to add.php-->
         <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Tables">
           <a class="nav-link" href="tables.php">
             <i class="fa fa-fw fa-table"></i>
             <span class="nav-link-text">Tables</span>
           </a>
-        </li>
+        </li>                         <!-- On click table button it redirect to table.php-->
    
       </ul>
       <ul class="navbar-nav sidenav-toggler">
@@ -64,6 +64,7 @@ function confirmDelete()
         </li>
       </ul>
       <ul class="navbar-nav ml-auto">
+
     
         <!-- <li class="nav-item">
           <form class="form-inline my-2 my-lg-0 mr-lg-2">
@@ -110,7 +111,7 @@ function confirmDelete()
       ?>
             <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
           
-            <thead>
+            <thead>                          <!--  Column names -->
   <tr>
     <th class="table-header" width="18%">Title</th>
     <th class="table-header" width="18%">Author Name</th> 

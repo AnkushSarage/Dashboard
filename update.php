@@ -1,12 +1,12 @@
 <?php
-require_once("db.php");  //include DB connction
+require_once("db.php");                             //include DB connction
 if(!empty($_POST["save_record"])) {
   $pdo_statement=$pdo_conn->prepare("update yearenderdata set title='" . $_POST[ 'title' ] . "', Authorname='" . $_POST[ 'Authorname' ]. "', Authodiscrition='" . $_POST[ 'Authodiscrition' ]. "' , Articalimage='" . $_POST[ 'Articalimage' ]. "', reg_date='" . $_POST[ 'reg_date' ]. "' where id=" . $_GET["id"]);
   $result = $pdo_statement->execute();
   if($result) {
     header('location:home.php');
   }
-}           //query for update data
+}                                                   //query for update data
 $pdo_statement = $pdo_conn->prepare("SELECT * FROM yearenderdata where id=" . $_GET["id"]);
 $pdo_statement->execute();
 $result = $pdo_statement->fetchAll();
@@ -41,31 +41,31 @@ body{width:auto;font-family:arial;letter-spacing:1px;line-height:20px;}
 
 <body class="fixed-nav sticky-footer bg-dark" id="page-top">
   <!-- Navigation-->
-  <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" id="mainNav">
-    <a class="navbar-brand" href="home.php">Add or Edit Record Here</a>
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" id="mainNav"> 
+    <a class="navbar-brand" href="#">Add or Edit Record Here</a>
     <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarResponsive">
       <ul class="navbar-nav navbar-sidenav" id="exampleAccordion">
-        <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Dashboard">
-          <a class="nav-link" href="home.php">
+        <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Dashboard"> 
+          <a class="nav-link" href="home.php">            
             <i class="fa fa-fw fa-dashboard"></i>
             <span class="nav-link-text">All Entries</span>
           </a>
-        </li>
+        </li>             
         <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Charts">
           <a class="nav-link" href="add.php">
             <i class="fa fa-fw fa-area-chart"></i>
             <span class="nav-link-text">Add Record</span>
           </a>
-        </li>
+        </li>                       <!-- On click add button it redirect to add.php-->
         <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Tables">
           <a class="nav-link" href="tables.php">
             <i class="fa fa-fw fa-table"></i>
             <span class="nav-link-text">Tables</span>
           </a>
-        </li>
+        </li>                       <!-- On click table button it redirect to table.php-->
       
       </ul>
       <ul class="navbar-nav sidenav-toggler">
@@ -92,7 +92,7 @@ body{width:auto;font-family:arial;letter-spacing:1px;line-height:20px;}
         </li> -->
         <li class="nav-item">
           <a class="nav-link" data-toggle="modal" data-target="#exampleModal">
-            <i class="fa fa-fw fa-sign-out"></i>Logout</a>
+            <i class="fa fa-fw fa-sign-out"></i>Logout</a>    
         </li>
       </ul>
     </div>
@@ -107,7 +107,7 @@ body{width:auto;font-family:arial;letter-spacing:1px;line-height:20px;}
         <li class="breadcrumb-item active">Update</li>
       </ol>
       <!-- Area Chart Example-->
-      <div style="margin:20px 0px;text-align:right;"><a href="home.php" class="button_link">Back to List</a></div>
+      <div style="margin:20px 0px;text-align:right;"><a href="home.php" class="button_link">Back to List</a></div>                <!--   this button redirect to home page -->
 <div class="frm-add">
 <h1 class="demo-form-heading">Update Record</h1>
 <form name="frmAdd" action="" method="POST">
