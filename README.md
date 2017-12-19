@@ -50,4 +50,6 @@
 *  Database connection are store in db.php file.
 *  Foe DB access PDO connection is used.
 *  Name of DB is Dashboard.
-*  Name of tabel is YearEnder.
+*  After adding new record, it directing store into database.
+*  If you want to update data you can change it by using update button.
+*  For delete data delete buton is used.
