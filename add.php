@@ -17,18 +17,16 @@ if(!empty($_POST["add_record"])) {
 //         echo '<p>There was an error uploading your file. Please try again.</p>';
 //       }
 
-  $sql = "INSERT INTO yearenderdata ( title, Authorname, Authodiscrition, Articalimage, reg_date) VALUES ( :title, :Authorname, :Authodiscrition, :Articalimage, :reg_date )";
+  $sql = "INSERT INTO yearender_site ( title, backgndcolor, headingcolor, discription, images, datetime, metadescription) VALUES ( :title, :backgndcolor, :headingcolor, :discription, :File, :datetime, :metadescription )";
   $pdo_statement = $pdo_conn->prepare( $sql );
     
-  $result = $pdo_statement->execute( array( ':title'=>$_POST['title'], ':Authorname'=>$_POST['Authorname'], ':Authodiscrition'=>$_POST['Authodiscrition'], ':Articalimage'=>$_POST['File'], ':reg_date'=>$_POST['reg_date'] ) );
+  $result = $pdo_statement->execute( array( ':title'=>$_POST['title'], ':backgndcolor'=>$_POST['backgndcolor'], ':headingcolor'=>$_POST['headingcolor'], ':discription'=>$_POST['discription'], ':File'=>$_POST['File'], ':datetime'=>$_POST['datetime'], ':metadescription'=>$_POST['metadescription'],) );
   if (!empty($result) ){
     header('location:home.php');
 
   }
 }
 ?>
-
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -52,9 +50,42 @@ body{width:auto;font-family:arial;letter-spacing:1px;line-height:20px;}
     padding: 50px;}
 .demo-form-heading {margin-top:0px;font-weight: 500;} 
 .demo-form-row{margin-top:10px;}
-.demo-form-field{width:700px;padding:10px;}
+.demo-form-field{width:1400px;padding:10px;}
 .demo-form-submit{color:#FFF;background-color:#414444;padding:10px 50px;border:0px;cursor:pointer;}
 </style>
+ <script type="text/javascript" src='js/tinymce/jquery.tinymce.min.js'></script>
+
+  <script type="text/javascript" src='js/tinymce/tinymce.min.js'></script>
+
+  <script type="text/javascript">
+  tinymce.init({
+    selector: '#myTextarea',
+
+    theme: 'modern',
+    skin: 'lightgray',
+    browser_spellcheck: true,
+    images_upload_url: 'postAcceptor.php',
+    images_upload_base_path: '',
+    images_upload_credentials: true,
+
+    width: 1345,
+    height: 200,
+    plugins: [
+      'advlist autolink link image lists charmap print preview hr anchor pagebreak spellchecker',
+      'searchreplace wordcount visualblocks visualchars code fullscreen insertdatetime media nonbreaking',
+      'save table contextmenu directionality emoticons template paste textcolor'
+    ],
+    content_css: 'css/content.css',
+    toolbar: 'insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image | print preview media fullpage | forecolor backcolor emoticons'
+  });
+
+  </script>
+  <script type="text/javascript">
+    tinymce.activeEditor.uploadImages(function(success) {
+   document.forms[0].submit();
+});
+  </script>
+   
 </head>
 
 <body class="fixed-nav sticky-footer bg-dark" id="page-top">
@@ -135,24 +166,36 @@ body{width:auto;font-family:arial;letter-spacing:1px;line-height:20px;}
     <input type="text" name="title" class="demo-form-field table table-bordered" required />
   </div>
   <div class="demo-form-row">
-    <label>Auther Name: </label><br>
-    <input type="text" name="Authorname" class="demo-form-field table table-bordered"  required >
+    <label>Background Color: </label><br>
+    <input type="text" name="backgndcolor" class="demo-form-field table table-bordered"  required >
   </div>
   <div class="demo-form-row">
-    <label>Author Discrition: </label><br>
-    <input type="text" name="Authodiscrition" class="demo-form-field table table-bordered" required />
-  </div>
+    <label>Heading Color: </label><br>
+    <input type="text" name="headingcolor" class="demo-form-field table table-bordered"  required > 
+   </div>
+  <br>
+  <div class="demo-form-row">
+    <label>Descrition: </label><br>
+    <textarea type="text" name="discription" class="demo-form-field table table-bordered" id="myTextarea"></textarea>  
+   </div>
+  <br>
+
   <div class="demo-form-row">
     <label>Artical Image: </label><br>
-  <div class="btn" >  
-        <span>Choose File</span>
+  <div class="btn" align="left">  
       </div>  
-  <input style="width: 572px" id="fileupload" type="file" name="File" class="demo-form-field table table-bordered" required /></div>
-    
+  <p align="left"><input style="width: 1400px"  id="fileupload" type="file" name="File" class="demo-form-field table table-bordered" required /></p></div>
+
+<div class="demo-form-row">
+    <label>Meta Description: </label><br>
+    <input type="text" name="metadescription" class="demo-form-field table table-bordered"  required > 
+   </div>
+
   <div class="demo-form-row">
     <label>Date: </label><br>
-    <input type="date" name="reg_date" class="demo-form-field table table-bordered" required />
+    <input type="date" name="datetime" class="demo-form-field table table-bordered" required />
   </div>
+  
   <div class="demo-form-row">
     <input name="add_record" type="submit" value="Add" class="demo-form-submit">
   </div>
@@ -178,7 +221,7 @@ body{width:auto;font-family:arial;letter-spacing:1px;line-height:20px;}
       <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+            <h5 class="modal-eventname" id="exampleModalLabel">Ready to Leave?</h5>
             <button class="close" type="button" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">×</span>
             </button>

@@ -1,5 +1,11 @@
     <?php 
-    require_once("db.php");                 // include DB connection
+    require_once("db.php");  
+
+     $pdo_statement = $pdo_conn->prepare("SELECT * FROM yearender_site ORDER BY id DESC");
+        $pdo_statement->execute();
+      $result = $pdo_statement->fetchAll();
+
+                    // include DB connection
     ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -105,7 +111,7 @@ function confirmDelete()
         <div class="card-body">
           <div class="table-responsive">
              <?php 
-     $pdo_statement = $pdo_conn->prepare("SELECT * FROM yearenderdata ORDER BY id DESC");
+     $pdo_statement = $pdo_conn->prepare("SELECT * FROM yearender_site ORDER BY id DESC");
         $pdo_statement->execute();
       $result = $pdo_statement->fetchAll();
       ?>
@@ -113,12 +119,15 @@ function confirmDelete()
           
             <thead>                          <!--  Column names -->
   <tr>
-    <th class="table-header" width="18%">Title</th>
-    <th class="table-header" width="18%">Author Name</th> 
-    <th class="table-header" width="18%">Author Discription</th>
-    <th class="table-header" width="18%">Artical Image</th>
-    <th class="table-header" width="18%">Registration Date</th>
-    <th class="table-header" width="10%">Actions</th>
+    <th class="table-header" width="4%" >id</th>
+    <th class="table-header" width="18%">Title</th> 
+    <th class="table-header" width="10%">Background Color</th>
+    <th class="table-header" width="10%">Heading Color</th>
+    <th class="table-header" width="10%">Discription</th>
+    <th class="table-header" width="8%">Artical Image</th>
+    <th class="table-header" width="12%">Meta Description</th>
+    <th class="table-header" width="10%">Registration Date</th>
+    <th class="table-header" width="8%">Actions</th>
   </tr>
   </thead>  
   <tbody id="table-body">
@@ -127,25 +136,30 @@ function confirmDelete()
     foreach($result as $row) {
   ?>
     <tr class="table-row">
+    <td><?php echo $row["Id"]; ?></td>
     <td><?php echo $row["title"]; ?></td>
-    <td><?php echo $row["Authorname"]; ?></td>
-    <td><?php echo $row["Authodiscrition"]; ?></td>
-    <td><?php echo '<img height="100px" width="100px" src="images/'.$row['Articalimage']. '">'; ?></td>
-    <td><?php echo $row["reg_date"]; ?></td>
-    <td><a class="ajax-action-links" href='update.php?id=<?php echo $row['id']; ?>'><img style="width: 40px; height: 30px; align-items: center;" src="images/update.png" title="Update"  /></a> <a class="ajax-action-links"  onclick='return confirmDelete()' href='delete.php?id=<?php echo $row['id']; ?>'><img style="width: 40px; height: 30px; align-items: center;" src="images/delete.png" title="Delete" /></a></td>
+    <td><?php echo $row["backgndcolor"]; ?></td>
+     <td><?php echo $row["headingcolor"]; ?></td>
+    <td><?php echo substr($row["discription"], 0, 50); ?></td>
+    <td><?php echo '<img height="100px" width="100px" src="images/'.$row['images']. '">'; ?></td>
+    <td><?php echo substr($row["metadescription"], 0, 50); ?></td>
+    <td><?php echo $row["datetime"]; ?></td>
+    <td><a class="ajax-action-links" href='update.php?Id=<?php echo $row['Id']; ?>'><img style="width: 40px; height: 30px; align-items: center;" src="images/update.png" title="Update"  /></a> <a class="ajax-action-links"  onclick='return confirmDelete()' href='delete.php?Id=<?php echo $row['Id']; ?>'><img style="width: 40px; height: 30px; align-items: center;" src="images/delete.png" title="Delete" /></a></td>
     </tr>
     <?php
     }
   }
+
   ?>
       </tbody>
-      </table>
+      </table>  
 
 
           </div>
         </div>
     
       </div>
+      
     </div>
     <!-- /.container-fluid-->
     <!-- /.content-wrapper-->

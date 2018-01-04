@@ -27,7 +27,7 @@
 * Entire data is same as home page data.
 
 ### Add Data
-## Preview
+#### Preview
 
 [![SB Admin Preview](https://thedailyeye.info/nl/TEST/adddash.png)](https://blackrockdigital.github.io/startbootstrap-sb-admin/)
 * Add Button redirect to new page where we can add new record (add.php).
@@ -36,7 +36,7 @@
 
 ### Update Data
 
-## Preview
+#### Preview
 
 [![SB Admin Preview](https://thedailyeye.info/nl/TEST/Updatedashpng.png)](https://blackrockdigital.github.io/startbootstrap-sb-admin/)
 * Update button redirect to Update record where we can update your data (update.php).

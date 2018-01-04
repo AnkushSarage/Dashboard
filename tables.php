@@ -104,7 +104,7 @@ function confirmDelete()
         <div class="card-body">
           <div class="table-responsive">
              <?php 
-     $pdo_statement = $pdo_conn->prepare("SELECT * FROM yearenderdata ORDER BY id DESC");
+     $pdo_statement = $pdo_conn->prepare("SELECT * FROM yearender_site ORDER BY id DESC");
         $pdo_statement->execute();
       $result = $pdo_statement->fetchAll();
       ?>
@@ -112,12 +112,14 @@ function confirmDelete()
           
             <thead>
   <tr>
-    <th class="table-header" width="10%">Id</th>
-    <th class="table-header" width="20%">Title</th>
-    <th class="table-header" width="18%">Author Name</th> 
-    <th class="table-header" width="22%">Author Discription</th>
-    <th class="table-header" width="18%">Artical Image</th>
-    <th class="table-header" width="22%">Registration Date</th>
+    <th class="table-header" width="4%" >id</th>
+    <th class="table-header" width="18%">Title</th> 
+    <th class="table-header" width="10%">Background Color</th>
+    <th class="table-header" width="10%">Heading Color</th>
+    <th class="table-header" width="10%">Discription</th>
+    <th class="table-header" width="8%">Artical Image</th>
+    <th class="table-header" width="12%">Meta Description</th>
+    <th class="table-header" width="10%">Registration Date</th>
     
   </tr>
   </thead>  
@@ -127,12 +129,14 @@ function confirmDelete()
     foreach($result as $row) {
   ?>
     <tr class="table-row">
-      <td><?php echo $row["id"]; ?></td>
+    <td><?php echo $row["Id"]; ?></td>
     <td><?php echo $row["title"]; ?></td>
-    <td><?php echo $row["Authorname"]; ?></td>
-    <td><?php echo $row["Authodiscrition"]; ?></td>
-    <td><?php echo '<img height="100px" width="100px" src="images/'.$row['Articalimage']. '">'; ?></td>
-    <td><?php echo $row["reg_date"]; ?></td>
+    <td><?php echo $row["backgndcolor"]; ?></td>
+     <td><?php echo $row["headingcolor"]; ?></td>
+    <td><?php echo substr($row["discription"], 0, 50); ?></td>
+    <td><?php echo '<img height="100px" width="100px" src="images/'.$row['images']. '">'; ?></td>
+    <td><?php echo substr($row["metadescription"], 0, 50); ?></td>
+    <td><?php echo $row["datetime"]; ?></td>
     </tr>
     <?php
     }

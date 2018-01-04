@@ -1,13 +1,13 @@
 <?php
 require_once("db.php");                             //include DB connction
 if(!empty($_POST["save_record"])) {
-  $pdo_statement=$pdo_conn->prepare("update yearenderdata set title='" . $_POST[ 'title' ] . "', Authorname='" . $_POST[ 'Authorname' ]. "', Authodiscrition='" . $_POST[ 'Authodiscrition' ]. "' , Articalimage='" . $_POST[ 'Articalimage' ]. "', reg_date='" . $_POST[ 'reg_date' ]. "' where id=" . $_GET["id"]);
+  $pdo_statement=$pdo_conn->prepare("update yearender_site set title='" . $_POST[ 'title' ] . "', backgndcolor='" . $_POST[ 'backgndcolor' ]. "', headingcolor='" . $_POST[ 'headingcolor' ]. "' , discription='" . $_POST[ 'discription' ]. "', images='" . $_POST[ 'images' ]. "', datetime='" . $_POST[ 'datetime' ]. "', metadescription='" . $_POST[ 'metadescription' ]. "' where id=" . $_GET["Id"]);
   $result = $pdo_statement->execute();
   if($result) {
     header('location:home.php');
   }
 }                                                   //query for update data
-$pdo_statement = $pdo_conn->prepare("SELECT * FROM yearenderdata where id=" . $_GET["id"]);
+$pdo_statement = $pdo_conn->prepare("SELECT * FROM yearender_site where Id=" . $_GET["Id"]);
 $pdo_statement->execute();
 $result = $pdo_statement->fetchAll();
 ?>
@@ -20,7 +20,7 @@ $result = $pdo_statement->fetchAll();
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta name="description" content="">
   <meta name="author" content="">
-  <title>Add Record</title>
+  <title>Update Record</title>
   <!-- Bootstrap core CSS-->
   <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
   <!-- Custom fonts for this template-->
@@ -34,9 +34,41 @@ body{width:auto;font-family:arial;letter-spacing:1px;line-height:20px;}
     padding: 50px;}
 .demo-form-heading {margin-top:0px;font-weight: 500;} 
 .demo-form-row{margin-top:10px;}
-.demo-form-field{width:700px;padding:10px;}
+.demo-form-field{width:1345px;padding:10px;}
 .demo-form-submit{color:#FFF;background-color:#414444;padding:10px 50px;border:0px;cursor:pointer;}
 </style>
+<script type="text/javascript" src='js/tinymce/jquery.tinymce.min.js'></script>
+
+  <script type="text/javascript" src='js/tinymce/tinymce.min.js'></script>
+
+<script type="text/javascript">
+  tinymce.init({
+    selector: '#myTextarea',
+
+    theme: 'modern',
+    skin: 'lightgray',
+    browser_spellcheck: true,
+    images_upload_url: 'postAcceptor.php',
+    images_upload_base_path: '',
+    images_upload_credentials: true,
+
+    width: 1345,
+    height: 200,
+    plugins: [
+      'advlist autolink link image lists charmap print preview hr anchor pagebreak spellchecker',
+      'searchreplace wordcount visualblocks visualchars code fullscreen insertdatetime media nonbreaking',
+      'save table contextmenu directionality emoticons template paste textcolor'
+    ],
+    content_css: 'css/content.css',
+    toolbar: 'insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image | print preview media fullpage | forecolor backcolor emoticons'
+  });
+
+  </script>
+  <script type="text/javascript">
+    tinymce.activeEditor.uploadImages(function(success) {
+   document.forms[0].submit();
+});
+  </script>
 </head>
 
 <body class="fixed-nav sticky-footer bg-dark" id="page-top">
@@ -116,20 +148,31 @@ body{width:auto;font-family:arial;letter-spacing:1px;line-height:20px;}
     <input type="text" name="title" class="demo-form-field table table-bordered" value="<?php echo $result[0]['title']; ?>" required  />
   </div>
   <div class="demo-form-row">
-    <label>Author Name: </label><br>
-    <textarea name="Authorname" class="demo-form-field table table-bordered"  required ><?php echo $result[0]['Authorname']; ?></textarea>
+    <label>Background Color: </label><br>
+    <input type="text" name="backgndcolor" class="demo-form-field table table-bordered" value="<?php echo $result[0]['backgndcolor']; ?>" required />
   </div>
   <div class="demo-form-row">
-    <label>Author Discrition: </label><br>
-    <input type="text" name="Authodiscrition" class="demo-form-field table table-bordered" value="<?php echo $result[0]['Authodiscrition']; ?>" required  />
+    <label>Heading Color: </label><br>
+    <input type="text" name="headingcolor" class="demo-form-field table table-bordered" value="<?php echo $result[0]['headingcolor']; ?>" required  />
   </div>
+
+
   <div class="demo-form-row">
-    <label>Artical Image: </label><br>
-    <input type="text" name="Articalimage" class="demo-form-field table table-bordered" value="<?php echo $result[0]['Articalimage']; ?>" required  />
+    <label>Choose New Artical Image: </label><br>
+
+    <img src='<?php echo $result[0]['images'];?>' alt='old_image'/>
+
+    <input type='file' name='images' id='image'/>
   </div>
+
+   <div class="demo-form-row">
+    <label>Mete Description: </label><br>
+    <input type="text" name="metadescription" class="demo-form-field table table-bordered" value="<?php echo $result[0]['metadescription']; ?>" required  />
+  </div>
+
   <div class="demo-form-row">
     <label>Date: </label><br>
-    <input type="date" name="reg_date" class="demo-form-field table table-bordered" value="<?php echo $result[0]['reg_date']; ?>" required />
+    <input type="date" name="datetime" class="demo-form-field table table-bordered" value="<?php echo $result[0]['datetime']; ?>" required />
   </div>
   <div class="demo-form-row">
     <input name="save_record" type="submit" value="Save" class="demo-form-submit">
