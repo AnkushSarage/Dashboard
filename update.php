@@ -156,17 +156,18 @@ body{width:auto;font-family:arial;letter-spacing:1px;line-height:20px;}
     <input type="text" name="headingcolor" class="demo-form-field table table-bordered" value="<?php echo $result[0]['headingcolor']; ?>" required  />
   </div>
 
+   <div class="demo-form-row">
+    <label>Descrition: </label><br>
+    <textarea type="text" name="discription" class="demo-form-field table table-bordered" id="myTextarea" value="<?php echo $result[0]['discription']; ?>"></textarea>  
+   </div>
 
   <div class="demo-form-row">
     <label>Choose New Artical Image: </label><br>
+    <p align="left"><input style="width: 1400px"  id="images" type="file" name="images" class="demo-form-field table table-bordered" value="<?php echo $result[0]['images']; ?>" required /></p></div>
 
-    <img src='<?php echo $result[0]['images'];?>' alt='old_image'/>
-
-    <input type='file' name='images' id='image'/>
-  </div>
 
    <div class="demo-form-row">
-    <label>Mete Description: </label><br>
+    <label>Meta Description: </label><br>
     <input type="text" name="metadescription" class="demo-form-field table table-bordered" value="<?php echo $result[0]['metadescription']; ?>" required  />
   </div>
 
