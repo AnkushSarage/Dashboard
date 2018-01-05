@@ -1,15 +1,31 @@
 <?php
-require_once("db.php");                             //include DB connction
+require_once("db.php"); 
+$pdo_statement = $pdo_conn->prepare("SELECT * FROM yearender_site where Id=" . $_GET["Id"]);
+$pdo_statement->execute();
+$result = $pdo_statement->fetchAll();
 if(!empty($_POST["save_record"])) {
-  $pdo_statement=$pdo_conn->prepare("update yearender_site set title='" . $_POST[ 'title' ] . "', backgndcolor='" . $_POST[ 'backgndcolor' ]. "', headingcolor='" . $_POST[ 'headingcolor' ]. "' , discription='" . $_POST[ 'discription' ]. "', images='" . $_POST[ 'images' ]. "', datetime='" . $_POST[ 'datetime' ]. "', metadescription='" . $_POST[ 'metadescription' ]. "' where id=" . $_GET["Id"]);
+  if($_POST['images']=''){
+ $_POST['images']=$result[0]['images'];
+}
+else{
+  $location=$_FILES["File"]["name"];
+  move_uploaded_file($_FILES["File"]["tmp_name"],"images/" . $location); 
+  $_POST['images']=$location;
+}
+}
+
+
+
+
+                            //include DB connction
+if(!empty($_POST["save_record"])) {
+  $pdo_statement=$pdo_conn->prepare("update yearender_site set title='" . $_POST[ 'title' ] . "', backgndcolor='" . $_POST[ 'backgndcolor' ]. "', headingcolor='" . $_POST[ 'headingcolor' ]. "' , discription='" . $_POST[ 'discription' ]. "', images='" . $_POST[ 'File']. "', datetime='" . $_POST[ 'datetime' ]. "', metadescription='" . $_POST['metadescription' ]. "' where id=" . $_GET["Id"]);
   $result = $pdo_statement->execute();
   if($result) {
     header('location:home.php');
   }
 }                                                   //query for update data
-$pdo_statement = $pdo_conn->prepare("SELECT * FROM yearender_site where Id=" . $_GET["Id"]);
-$pdo_statement->execute();
-$result = $pdo_statement->fetchAll();
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -51,7 +67,7 @@ body{width:auto;font-family:arial;letter-spacing:1px;line-height:20px;}
     images_upload_url: 'postAcceptor.php',
     images_upload_base_path: '',
     images_upload_credentials: true,
-
+      images_reuse_filename: true,
     width: 1345,
     height: 200,
     plugins: [
@@ -65,12 +81,14 @@ body{width:auto;font-family:arial;letter-spacing:1px;line-height:20px;}
 
   </script>
   <script type="text/javascript">
-    tinymce.activeEditor.uploadImages(function(success) {
+    tinymce.activeEditor.uploadImages(  (success) {
    document.forms[0].submit();
 });
   </script>
 </head>
+<?php 
 
+?>
 <body class="fixed-nav sticky-footer bg-dark" id="page-top">
   <!-- Navigation-->
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" id="mainNav"> 
@@ -142,7 +160,7 @@ body{width:auto;font-family:arial;letter-spacing:1px;line-height:20px;}
       <div style="margin:20px 0px;text-align:right;"><a href="home.php" class="button_link">Back to List</a></div>                <!--   this button redirect to home page -->
 <div class="frm-add">
 <h1 class="demo-form-heading">Update Record</h1>
-<form name="frmAdd" action="" method="POST">
+<form name="frmAdd" action="" enctype="multipart/form-data" method="POST">
   <div class="demo-form-row">
     <label>Title: </label><br>
     <input type="text" name="title" class="demo-form-field table table-bordered" value="<?php echo $result[0]['title']; ?>" required  />
@@ -158,12 +176,12 @@ body{width:auto;font-family:arial;letter-spacing:1px;line-height:20px;}
 
    <div class="demo-form-row">
     <label>Descrition: </label><br>
-    <textarea type="text" name="discription" class="demo-form-field table table-bordered" id="myTextarea" value="<?php echo $result[0]['discription']; ?>"></textarea>  
+    <textarea type="text" name="discription" class="demo-form-field table table-bordered" id="myTextarea" value=""><?php echo $result[0]['discription']; ?></textarea>  
    </div>
 
   <div class="demo-form-row">
     <label>Choose New Artical Image: </label><br>
-    <p align="left"><input style="width: 1400px"  id="images" type="file" name="images" class="demo-form-field table table-bordered" value="<?php echo $result[0]['images']; ?>" required /></p></div>
+    <p align="left"><input style="width: 1400px"   type="file" name="File" class="demo-form-field table table-bordered" value="<?php echo $result[0]['images']; ?>" /></p></div>
 
 
    <div class="demo-form-row">
@@ -224,6 +242,7 @@ body{width:auto;font-family:arial;letter-spacing:1px;line-height:20px;}
     <script src="js/sb-admin.min.js"></script>
     <!-- Custom scripts for this page-->
     <script src="js/sb-admin-charts.min.js"></script>
+     
   </div>
 </body>
 

@@ -2,30 +2,23 @@
 if(!empty($_POST["add_record"])) {
   require_once("db.php");                    //  Include DB connection
 
-//     $target_path="images/";
+move_uploaded_file($_FILES["File"]["tmp_name"],"images/" . $_FILES["File"]["name"]);     
+$location=$_FILES["File"]["name"];
+$title=$_POST['title'];
+$backgndcolor=$_POST['backgndcolor'];
+$headingcolor=$_POST['headingcolor'];
+$discription=$_POST['discription'];
+$datetime=$_POST['datetime'];
+$metadescription=$_POST['metadescription'];
 
-// $target_path = $target_path . basename( $_FILES['File1']['name'] ); 
-// $randString = md5(time()); //encode the timestamp - returns a 32 chars long string
-//   $fileName = $_FILES["File1"]["name"]; //the original file name
-//   $splitName = explode(".", $fileName); //split the file name by the dot
-//   $fileExt = end($splitName); //get the file extension
-//   $newFileName  = strtolower($randString.'.time()'.$fileExt); //join file name and ext.
+$pdo_conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+$sql = "INSERT INTO yearender_site ( title, backgndcolor, headingcolor, discription, images, datetime, metadescription) VALUES ('$title', '$backgndcolor', '$headingcolor', '$discription', '$location', '$datetime', '$metadescription' )";
+$pdo_conn->exec($sql);
 
-// if ( move_uploaded_file( $_FILES['File1']['tmp_name'], $target_path)) {
-//        echo '<p>The file was uploaded</p>';
-//       } else {
-//         echo '<p>There was an error uploading your file. Please try again.</p>';
-//       }
-
-  $sql = "INSERT INTO yearender_site ( title, backgndcolor, headingcolor, discription, images, datetime, metadescription) VALUES ( :title, :backgndcolor, :headingcolor, :discription, :File, :datetime, :metadescription )";
-  $pdo_statement = $pdo_conn->prepare( $sql );
-    
-  $result = $pdo_statement->execute( array( ':title'=>$_POST['title'], ':backgndcolor'=>$_POST['backgndcolor'], ':headingcolor'=>$_POST['headingcolor'], ':discription'=>$_POST['discription'], ':File'=>$_POST['File'], ':datetime'=>$_POST['datetime'], ':metadescription'=>$_POST['metadescription'],) );
-  if (!empty($result) ){
     header('location:home.php');
 
-  }
 }
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -67,6 +60,7 @@ body{width:auto;font-family:arial;letter-spacing:1px;line-height:20px;}
     images_upload_url: 'postAcceptor.php',
     images_upload_base_path: '',
     images_upload_credentials: true,
+    images_reuse_filename: true,
 
     width: 1345,
     height: 200,
@@ -160,7 +154,7 @@ body{width:auto;font-family:arial;letter-spacing:1px;line-height:20px;}
 <div style="margin:20px 0px;text-align:right;"><a href="home.php" class="button_link table table-bordered">Back to List</a></div>      <!--   this button redirect to home page -->
 <div class="frm-add">
 <h1 class="demo-form-heading ">Add New Record</h1>
-<form name="frmAdd" action="" method="POST">
+<form name="frmAdd" action="" enctype="multipart/form-data" method="POST">
   <div class="demo-form-row">
     <label>Title: </label><br>
     <input type="text" name="title" class="demo-form-field table table-bordered" required />
@@ -245,36 +239,7 @@ body{width:auto;font-family:arial;letter-spacing:1px;line-height:20px;}
     <script src="js/sb-admin.min.js"></script>
     <!-- Custom scripts for this page-->
     <script src="js/sb-admin-charts.min.js"></script>
-    <script language="javascript" type="text/javascript">
-    $(function () {
-      $("#fileupload").change(function () {
-        $("#dvPreview").html("");
-        var regex = /^([a-zA-Z0-9\s_\\.\-:])+(.jpg|.jpeg|.gif|.png|.bmp)$/;
-        if (regex.test($(this).val().toLowerCase())) {
-          if ($.browser.msie && parseFloat(jQuery.browser.version) <= 9.0) {
-            $("#dvPreview").show();
-            $("#dvPreview")[0].filters.item("DXImageTransform.Microsoft.AlphaImageLoader").src = $(this).val();
-          } else {
-            if (typeof (FileReader) != "undefined") {
-              $("#dvPreview").show();
-              $("#dvPreview").append("<img />");
-              var reader = new FileReader();
-              reader.onload = function (e) {
-                $("#dvPreview img").attr("src", e.target.result);
-                $("#dvPreview img").attr("style", "width:242px; height:200px;");
-               
-              }
-              reader.readAsDataURL($(this)[0].files[0]);
-            } else {
-              alert("This browser does not support FileReader.");
-            }
-          }
-        } else {
-          alert("Please upload a valid image file.");
-        }
-      });
-    });
-</script>
+    
   </div>
 </body>
 
