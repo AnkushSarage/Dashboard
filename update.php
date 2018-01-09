@@ -1,32 +1,30 @@
 <?php
+
 require_once("db.php"); 
-$pdo_statement = $pdo_conn->prepare("SELECT * FROM yearender_site where Id=" . $_GET["Id"]);
-$pdo_statement->execute();
-$result = $pdo_statement->fetchAll();
-if(!empty($_POST["save_record"])) {
-  if($_POST['images']=''){
- $_POST['images']=$result[0]['images'];
-}
-else{
-  $location=$_FILES["File"]["name"];
-  move_uploaded_file($_FILES["File"]["tmp_name"],"images/" . $location); 
-  $_POST['images']=$location;
-}
-}
+ $sql = $pdo_conn->prepare("SELECT * FROM yearender_site where Id='" . $_GET["Id"]."'");
+  $sql->execute();
+  $result = $sql->fetchAll();
 
+  if(!empty($_POST["save_record"]) && empty($_FILES["File"]["name"])){
+  
 
-
-
-                            //include DB connction
-if(!empty($_POST["save_record"])) {
-  $pdo_statement=$pdo_conn->prepare("update yearender_site set title='" . $_POST[ 'title' ] . "', backgndcolor='" . $_POST[ 'backgndcolor' ]. "', headingcolor='" . $_POST[ 'headingcolor' ]. "' , discription='" . $_POST[ 'discription' ]. "', images='" . $_POST[ 'File']. "', datetime='" . $_POST[ 'datetime' ]. "', metadescription='" . $_POST['metadescription' ]. "' where id=" . $_GET["Id"]);
-  $result = $pdo_statement->execute();
-  if($result) {
+  $pdo_statement=$pdo_conn->prepare("update yearender_site set title='" . $_POST[ 'title' ] . "', backgndcolor='" . $_POST[ 'backgndcolor' ]. "', headingcolor='" . $_POST[ 'headingcolor' ]. "' , discription='" . $_POST[ 'discription' ]. "', images='" . $result[0]['images']. "', datetime='" . $_POST[ 'datetime' ]. "', metadescription='" . $_POST['metadescription' ]. "' where id='". $_GET["Id"]."'");
+  $getdata = $pdo_statement->execute();
+  if($getdata) {
     header('location:home.php');
   }
-}                                                   //query for update data
+}    elseif (!empty($_POST["save_record"])) {
+  move_uploaded_file($_FILES["File"]["tmp_name"],"images/" . $_FILES["File"]["name"]);     
+  $location=$_FILES["File"]["name"];
+   $pdo_statement=$pdo_conn->prepare("update yearender_site set title='" . $_POST[ 'title' ] . "', backgndcolor='" . $_POST[ 'backgndcolor' ]. "', headingcolor='" . $_POST[ 'headingcolor' ]. "' , discription='" . $_POST[ 'discription' ]. "', images='"  .$location ."', datetime='" . $_POST[ 'datetime' ]. "', metadescription='" . $_POST['metadescription' ]. "' where id='". $_GET["Id"]."'");
+  $getdata = $pdo_statement->execute();
+  if($getdata) {
+    header('location:home.php');
+  }
+} 
+                                            
+  ?>                                            
 
-?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -67,7 +65,7 @@ body{width:auto;font-family:arial;letter-spacing:1px;line-height:20px;}
     images_upload_url: 'postAcceptor.php',
     images_upload_base_path: '',
     images_upload_credentials: true,
-      images_reuse_filename: true,
+    images_reuse_filename: true,
     width: 1345,
     height: 200,
     plugins: [
@@ -181,7 +179,7 @@ body{width:auto;font-family:arial;letter-spacing:1px;line-height:20px;}
 
   <div class="demo-form-row">
     <label>Choose New Artical Image: </label><br>
-    <p align="left"><input style="width: 1400px"   type="file" name="File" class="demo-form-field table table-bordered" value="<?php echo $result[0]['images']; ?>" /></p></div>
+    <p align="left"><input style="width: 1400px"   type="file" name="File" class="demo-form-field table table-bordered" value="" /></p></div>
 
 
    <div class="demo-form-row">
