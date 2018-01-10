@@ -1,5 +1,11 @@
     <?php 
-    require_once("db.php");
+    require_once("db.php");  
+
+     $pdo_statement = $pdo_conn->prepare("SELECT * FROM yearender_site ORDER BY id DESC");
+        $pdo_statement->execute();
+      $result = $pdo_statement->fetchAll();
+
+                    // include DB connection
     ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -12,13 +18,13 @@
   <meta name="author" content="">
   <title>Home Page</title>
   <!-- Bootstrap core CSS-->
-  <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
   <!-- Custom fonts for this template-->
-  <link href="vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+  <link href="../vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
   <!-- Page level plugin CSS-->
-  <link href="vendor/datatables/dataTables.bootstrap4.css" rel="stylesheet">
+  <link href="../vendor/datatables/dataTables.bootstrap4.css" rel="stylesheet">
   <!-- Custom styles for this template-->
-  <link href="css/sb-admin.css" rel="stylesheet">
+  <link href="../css/sb-admin.css" rel="stylesheet">
   <script type='text/javascript'>
 function confirmDelete()
 {
@@ -47,13 +53,13 @@ function confirmDelete()
             <i class="fa fa-fw fa-area-chart"></i>
             <span class="nav-link-text">Add Record</span>
           </a>
-        </li>
+        </li>                          <!-- On click add button it redirect to add.php-->
         <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Tables">
           <a class="nav-link" href="tables.php">
             <i class="fa fa-fw fa-table"></i>
             <span class="nav-link-text">Tables</span>
           </a>
-        </li>
+        </li>                         <!-- On click table button it redirect to table.php-->
    
       </ul>
       <ul class="navbar-nav sidenav-toggler">
@@ -64,7 +70,8 @@ function confirmDelete()
         </li>
       </ul>
       <ul class="navbar-nav ml-auto">
-     
+
+    
         <!-- <li class="nav-item">
           <form class="form-inline my-2 my-lg-0 mr-lg-2">
             <div class="input-group">
@@ -91,7 +98,7 @@ function confirmDelete()
         <li class="breadcrumb-item">
           <a href="#">Dashboard</a>
         </li>
-        <li class="breadcrumb-item active">Table</li>
+        <li class="breadcrumb-item active">My Dashboard</li>
       </ol>
 
       <div class="row">
@@ -110,17 +117,16 @@ function confirmDelete()
       ?>
             <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
           
-            <thead>
+            <thead>                          <!--  Column names -->
   <tr>
     <th class="table-header" width="4%" >id</th>
     <th class="table-header" width="18%">Title</th> 
     <th class="table-header" width="10%">Background Color</th>
     <th class="table-header" width="10%">Heading Color</th>
-    <th class="table-header" width="10%">Discription</th>
     <th class="table-header" width="8%">Artical Image</th>
     <th class="table-header" width="12%">Meta Description</th>
     <th class="table-header" width="10%">Registration Date</th>
-    
+    <th class="table-header" width="8%">Actions</th>
   </tr>
   </thead>  
   <tbody id="table-body">
@@ -133,23 +139,25 @@ function confirmDelete()
     <td><?php echo $row["title"]; ?></td>
     <td><?php echo $row["backgndcolor"]; ?></td>
      <td><?php echo $row["headingcolor"]; ?></td>
-    <td><?php echo substr($row["discription"], 0, 50); ?></td>
-    <td><?php echo '<img height="100px" width="100px" src="images/'.$row['images']. '">'; ?></td>
+    <td><?php echo '<img height="100px" width="100px" src="../images/'.$row['images']. '">'; ?></td>
     <td><?php echo substr($row["metadescription"], 0, 50); ?></td>
     <td><?php echo $row["datetime"]; ?></td>
+    <td><a class="ajax-action-links" href='update.php?Id=<?php echo $row['Id']; ?>'><img style="width: 40px; height: 30px; align-items: center;" src="../images/update.png" title="Update"  /></a> <a class="ajax-action-links"  onclick='return confirmDelete()' href='delete.php?Id=<?php echo $row['Id']; ?>'><img style="width: 40px; height: 30px; align-items: center;" src="../images/delete.png" title="Delete" /></a></td>
     </tr>
     <?php
     }
   }
+
   ?>
       </tbody>
-      </table>
+      </table>  
 
 
           </div>
         </div>
     
       </div>
+      
     </div>
     <!-- /.container-fluid-->
     <!-- /.content-wrapper-->
@@ -177,25 +185,25 @@ function confirmDelete()
           <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
           <div class="modal-footer">
             <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-            <a class="btn btn-primary" href="index.php">Logout</a>
+            <a class="btn btn-primary" href="../index.php">Logout</a>
           </div>
         </div>
       </div>
     </div>
     <!-- Bootstrap core JavaScript-->
-    <script src="vendor/jquery/jquery.min.js"></script>
-    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="../vendor/jquery/jquery.min.js"></script>
+    <script src="../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
     <!-- Core plugin JavaScript-->
-    <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+    <script src="../vendor/jquery-easing/jquery.easing.min.js"></script>
     <!-- Page level plugin JavaScript-->
-    <script src="vendor/chart.js/Chart.min.js"></script>
-    <script src="vendor/datatables/jquery.dataTables.js"></script>
-    <script src="vendor/datatables/dataTables.bootstrap4.js"></script>
+    <script src="../vendor/chart.js/Chart.min.js"></script>
+    <script src="../vendor/datatables/jquery.dataTables.js"></script>
+    <script src="../vendor/datatables/dataTables.bootstrap4.js"></script>
     <!-- Custom scripts for all pages-->
-    <script src="js/sb-admin.min.js"></script>
+    <script src="../js/sb-admin.min.js"></script>
     <!-- Custom scripts for this page-->
-    <script src="js/sb-admin-datatables.min.js"></script>
-    <script src="js/sb-admin-charts.min.js"></script>
+    <script src="../js/sb-admin-datatables.min.js"></script>
+    <script src="../js/sb-admin-charts.min.js"></script>
   </div>
 </body>
 

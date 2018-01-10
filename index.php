@@ -21,7 +21,7 @@
     <div class="card card-login mx-auto mt-5">
       <div class="card-header">Login</div>
       <div class="card-body">
-        <form method="post" action="checklogin.php"> <!--  redirect on checklogin.php -->
+        <form method="post" action="php_files/checklogin.php"> <!--  redirect on checklogin.php -->
           <div class="form-group">
             <label for="exampleInputEmail1">Username</label>
             <input class="form-control" placeholder="Enter Username" name="username" id="username" type="text" aria-describedby="emailHelp" >

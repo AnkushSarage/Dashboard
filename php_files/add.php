@@ -2,7 +2,7 @@
 if(!empty($_POST["add_record"])) {
   require_once("db.php");                    //  Include DB connection
 
-move_uploaded_file($_FILES["File"]["tmp_name"],"images/" . $_FILES["File"]["name"]);     
+move_uploaded_file($_FILES["File"]["tmp_name"],"../images/" . $_FILES["File"]["name"]);     
 $location=$_FILES["File"]["name"];
 $title=$_POST['title'];
 $backgndcolor=$_POST['backgndcolor'];
@@ -31,11 +31,11 @@ $pdo_conn->exec($sql);
   <meta name="author" content="">
   <title>Add Record</title>
   <!-- Bootstrap core CSS-->
-  <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
   <!-- Custom fonts for this template-->
-  <link href="vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+  <link href="../vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
   <!-- Custom styles for this template-->
-  <link href="css/sb-admin.css" rel="stylesheet">
+  <link href="../css/sb-admin.css" rel="stylesheet">
   <style>
 body{width:auto;font-family:arial;letter-spacing:1px;line-height:20px;}
 .button_link {color:#FFF;text-decoration:none; background-color:#428a8e;padding:10px;}
@@ -46,9 +46,9 @@ body{width:auto;font-family:arial;letter-spacing:1px;line-height:20px;}
 .demo-form-field{width:1400px;padding:10px;}
 .demo-form-submit{color:#FFF;background-color:#414444;padding:10px 50px;border:0px;cursor:pointer;}
 </style>
- <script type="text/javascript" src='js/tinymce/jquery.tinymce.min.js'></script>
+ <script type="text/javascript" src='../js/tinymce/jquery.tinymce.min.js'></script>
 
-  <script type="text/javascript" src='js/tinymce/tinymce.min.js'></script>
+  <script type="text/javascript" src='../js/tinymce/tinymce.min.js'></script>
 
   <script type="text/javascript">
   tinymce.init({
@@ -69,7 +69,7 @@ body{width:auto;font-family:arial;letter-spacing:1px;line-height:20px;}
       'searchreplace wordcount visualblocks visualchars code fullscreen insertdatetime media nonbreaking',
       'save table contextmenu directionality emoticons template paste textcolor'
     ],
-    content_css: 'css/content.css',
+    content_css: '../css/content.css',
     toolbar: 'insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image | print preview media fullpage | forecolor backcolor emoticons'
   });
 
@@ -223,22 +223,22 @@ body{width:auto;font-family:arial;letter-spacing:1px;line-height:20px;}
           <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
           <div class="modal-footer">
             <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-            <a class="btn btn-primary" href="index.php">Logout</a>
+            <a class="btn btn-primary" href="../index.php">Logout</a>
           </div>
         </div>
       </div>
     </div>
     <!-- Bootstrap core JavaScript-->
-    <script src="vendor/jquery/jquery.min.js"></script>
-    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="../vendor/jquery/jquery.min.js"></script>
+    <script src="../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
     <!-- Core plugin JavaScript-->
-    <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+    <script src="../vendor/jquery-easing/jquery.easing.min.js"></script>
     <!-- Page level plugin JavaScript-->
-    <script src="vendor/chart.js/Chart.min.js"></script>
+    <script src="../vendor/chart.js/Chart.min.js"></script>
     <!-- Custom scripts for all pages-->
-    <script src="js/sb-admin.min.js"></script>
+    <script src="../js/sb-admin.min.js"></script>
     <!-- Custom scripts for this page-->
-    <script src="js/sb-admin-charts.min.js"></script>
+    <script src="../js/sb-admin-charts.min.js"></script>
     
   </div>
 </body>
